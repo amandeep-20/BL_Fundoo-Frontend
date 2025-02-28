@@ -1,0 +1,225 @@
+.dashboard-main-body {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.dashboard-header {
+    max-height: 100px;
+    min-height: 65px;
+    border-bottom: 1px solid rgb(234, 233, 233);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 15px;
+}
+
+.header-left {
+    max-width: 25%;
+}
+
+.header-right {
+    display: flex;
+    width: 80%;
+    justify-content: space-between;
+    gap: 5%;
+}
+
+.dashboard-header-left-container {
+    margin-left: 15px;
+    display: flex;
+    align-items: center;
+    gap: 10%;
+    flex-shrink: 1;
+    max-width: 500px;
+}
+
+.header-left-container-menu {
+    width: 20%;
+}
+
+.header-left-container-logo {
+    width: 35%;
+}
+
+.header-left-container-logo img {
+    padding: 6px 0;
+    height: 35px;
+    width: 35px;
+}
+
+.header-left-container-title {
+    width: 45%;
+    font-size: 25px;
+    color: rgb(73, 73, 73);
+    font-weight: 400;
+}
+
+/* Search Bar */
+.dashboard-header-middle-container {
+    width: 70%;
+    max-width: 50%;
+    background-color: #F1F3F4;
+    display: flex;
+    align-items: center;
+    min-height: 50px;
+    border-radius: 5px;
+    gap: 5px;
+    padding-left: 15px;
+    flex-shrink: 1;
+}
+
+.search-icon {
+    height: 18px;
+    width: 18px;
+    color: #5F6368;
+    cursor: pointer;
+}
+
+.header-middle-search-input {
+    border: none;
+    background-color: inherit;
+    font-size: 16px;
+    outline: none;
+    width: 100%;
+}
+
+/* Right Section (Icons + Account Menu) */
+.dashboard-header-right-container {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    width: 300px;
+    max-width: 40%;
+    min-width: 150px;
+    gap: 8%;
+    margin-right: 25px;
+}
+
+.header-right-container-icons {
+    display: flex;
+    justify-content: flex-end;
+    width: 150px;
+    max-width: 50%;
+    gap: 8%;
+}
+
+.header-right-container-account {
+    align-items: center;
+    width: 100px;
+    max-width: 40%;
+    display: flex;
+    justify-content: flex-end;
+    gap: 35px;
+}
+
+/* Icons */
+.icons {
+    cursor: pointer;
+    color: #5F6368;
+}
+
+.icon-div {
+    width: 25%;
+    flex-shrink: 1;
+    color: #5F6368;
+}
+
+.icon-div-account {
+    width: 24%;
+    flex-shrink: 1;
+    color: #5F6368;
+}
+
+/* Responsive Design (min-width: 480px) and*/
+@media  (max-width: 768px) {
+    .header-left {
+        margin-left:0px;
+        width: 50%;
+        border: 1px soild yellow;
+    }
+    .dashboard-header {
+        width: 100%;
+        gap: 70px;
+    }
+
+    /* Hide unnecessary elements */
+    .header-left-container-menu,
+    .header-right-container-icons,
+    .grid-icon,
+    .row-icon {
+        display: none !important;
+    }
+
+    .header-right {
+        justify-content: flex-end;
+        margin-right: 0%;
+        border: 1px soild red;
+    }
+
+    .dashboard-header-middle-container {
+        border: 1px soild red;
+        width: auto;
+        max-width: fit-content;
+        background-color: transparent;
+        padding-left: 0;
+        justify-content: flex-end;
+        flex-direction: row-reverse;
+    }
+
+    .header-middle-search-input {
+        display: none;
+    }
+
+    .search-icon {
+        height: 24px;
+        width: 24px;
+    }
+
+    .dashboard-header-right-container {
+        // border: 1px solid green;
+        display: flex;
+       
+        justify-content: flex-end;
+        width: auto;
+        flex-grow: 1;
+        gap: 15px;
+        margin-right: 15px;
+    }
+    .header-left-container-title{
+        margin-right: 30%;
+    }
+
+    .header-middle-search-input{
+        border: 1px solid pink;
+    }
+
+    .header-right-container-account {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        gap: 10px;
+    }
+    .icon-div-account2{
+        margin-top: 7%;
+    }
+    .dashboard-header-left-container {
+        margin-left:0px
+    }
+}
+
+@media (max-width: 480px) {
+    .dashboard-header-left-container {
+        margin-left:0px
+    }
+    .header-left {
+        width: 150px;
+    }
+    .dashboard-header-middle-container{
+        display: none;
+    }
+
+    .header-right {
+        justify-content: center;
+    }
+}

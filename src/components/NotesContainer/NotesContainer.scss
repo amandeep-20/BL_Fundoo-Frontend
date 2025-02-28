@@ -1,0 +1,172 @@
+.note-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  background-color: white;
+  padding: 40px;
+  // min-height: 100vh; // Ensures container takes full height
+  width: 100%; // Full width for flexibility
+  box-sizing: border-box; // Includes padding in width calculation
+  // overflow-y: scroll;
+}
+
+.note-card {
+  width: 100%; // Fluid width by default
+  max-width: 600px; // Caps width on larger screens
+  background-color: white;
+  padding: 10px 16px 0px 10px;
+  border-radius: 50px;
+  box-shadow: 0 2px 100px rgba(0, 0, 0, 0.1); // Adjusted box-shadow for realism (100px was too large)
+  border: 1px solid black; // Changed to valid syntax
+  cursor: text;
+  box-sizing: border-box; // Consistent sizing
+  overflow: visible !important; 
+}
+
+.expanded {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.collapsed {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 50px;
+}
+
+.note-content {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.text-field {
+  font-size: 16px;
+  color: black !important;
+}
+
+.collapsed-input {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.collapsed-text {
+  color: #5f6368 !important;
+  font-size: 16px;
+  pointer-events: none;
+}
+
+.collapsed-icons {
+  display: flex;
+  align-items: center;
+}
+
+.title-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: 8px;
+}
+
+.icon-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  margin-top: 10px;
+  flex-wrap: wrap; // Allows icons to wrap on smaller screens
+}
+
+.icon-button {
+  color: #5f6368 !important;
+}
+
+.close-button {
+  margin-left: auto;
+  color: #5f6368 !important;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.disabled {
+  opacity: 0.5;
+}
+
+.notes-list {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); // 4 cards per row by default
+  gap: 20px; // Adds spacing between cards
+  margin-top: 20px;
+  padding: 10px;
+  justify-content: center;
+  width: 100%; // Full width for responsiveness
+  max-width: 1400px; // Caps width on very large screens
+  box-sizing: border-box;
+}
+
+/* Media Queries for Responsiveness */
+@media (max-width: 1200px) {
+  .notes-list {
+    grid-template-columns: repeat(3, 1fr); // 3 cards per row
+  }
+
+  .note-container {
+    padding: 30px; // Slightly less padding
+  }
+}
+
+@media (max-width: 900px) {
+  .notes-list {
+    grid-template-columns: repeat(2, 1fr); // 2 cards per row
+  }
+
+  .note-card {
+    max-width: 500px; // Slightly smaller cards
+    padding: 8px 12px 0px 8px; // Adjusted padding
+  }
+
+  .icon-row {
+    gap: 5px; // Adds spacing between wrapped icons
+  }
+}
+
+
+@media  screen and (min-width:320px) and (max-width: 427px) {
+  .notes-list {
+    grid-template-columns: 1fr; // 1 card per row
+    
+  }
+
+  .note-container {
+    padding: 20px; // Reduced padding for small screens
+  }
+
+  .note-card {
+    width: 250px; // Full width on mobile
+    border-radius: 20px; // Slightly less rounded for smaller screens
+    padding: 6px 10px 0px 6px; // Tighter padding
+    
+  }
+
+  .text-field {
+    font-size: 20px; // Smaller text
+  }
+
+  .collapsed-text {
+    font-size: 14px;
+  }
+
+  .icon-row {
+    justify-content: flex-start; // Align icons to left when wrapped
+  }
+
+  .close-button {
+    font-size: 12px; // Smaller button text
+  }
+}

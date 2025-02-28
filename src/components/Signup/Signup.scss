@@ -1,0 +1,172 @@
+.signup-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.signup-paper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.signup-form {
+  width: 100%;
+  margin-top: 2em;
+  margin-bottom: 2em;
+}
+.signup-txt {
+  text-align: left;
+}
+
+.signup-user {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+  width: 100%;
+}
+
+.signup-username {
+  width: 85%;
+}
+.signup-left {
+  width: 45%;
+  flex: 4;
+  // padding: 20px;
+}
+
+.signup-title {
+  font-weight: bold;
+  color: #ff9900;
+  display: flex;
+}
+
+.signup-subtitle {
+  display: flex;
+}
+
+.signup-actions {
+  width: 85%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.signup-right {
+  width: 45%;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  justify-content: center;
+  padding-right: 15%;
+}
+
+.signup-image {
+  height: 230px;
+  width: 190px;
+}
+.signup-img-text {
+  padding-left: 25%;
+}
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  font-size: 12px;
+  gap: 35rem;
+}
+
+.footer-links {
+  display: flex;
+  gap: 15px;
+}
+
+/* Small Mobile Devices (up to 480px) */
+@media screen and (min-width: 120px) and (max-width: 480px) {
+  .signup-container {
+    padding: 10px;
+  }
+
+  .signup-paper {
+    margin-left: 0.2em;
+    padding-left: 0.5em;
+  }
+
+  .signup-txt {
+    text-align: center;
+  }
+
+  .signup-left{
+    width: 100%;
+    padding: 10px;
+  }
+
+  .signup-title{
+    position: relative;
+    left: 3em;
+  }
+
+  .signup-right{
+    display: none;
+  }
+  
+  .signup-username {
+    width: 100%; 
+    z-index: 1000;
+  }
+
+  .signup-actions {
+    width: 90%;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .footer {
+    flex-direction: column;
+    gap: 15px;
+    text-align: center;
+  }
+
+  .footer-links {
+    flex-direction: column;
+    gap: 10px;
+  }
+}
+
+/* Tablets (481px - 768px) */
+@media screen and (min-width: 481px) and (max-width: 768px) {
+  .signup-paper {
+    flex-direction: column;
+    align-items: center;
+    padding-left: 5em;
+  }
+
+  .signup-left{
+    width: 80%;
+    padding: 15px;
+  }
+
+  .signup-right{
+    display: none;
+  }
+
+  .signup-username {
+    width: 82%;
+  }
+
+  .signup-actions {
+    width: 85%;
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .footer {
+    flex-direction: column;
+    gap: 20px;
+  }
+}
