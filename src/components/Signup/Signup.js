@@ -76,7 +76,7 @@ const Signup = () => {
 
     if (isValid) {
       console.log("Form submitted:", { firstName, lastName, email : username, "service": "advance", password });
-      signupApiCall({ firstName, lastName, email : username, "service": "advance", password }).then(()=> navigate("/dashboard/notes"));
+      signupApiCall({ firstName, lastName, email : username, "service": "advance", password }).then(()=> navigate("/"));
 
     }
   };

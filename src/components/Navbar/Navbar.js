@@ -4,9 +4,9 @@ import { Menu, RotateCw, Settings, Rows2, Grip, CircleUser, Search } from "lucid
 import { Avatar } from "@mui/material";
 import ProfileMenu from "./ProfileMenu";
 
-function Navbar({ toggleSidebar }) {
+function Navbar({ toggleSidebar, activePage }) {
     const [anchorEl, setAnchorEl] = useState(null);
-    const firstLetter = localStorage.getItem("email").charAt(0).toLocaleUpperCase()
+    const firstLetter = localStorage.getItem("email")?.charAt(0).toLocaleUpperCase() || "U";
 
     const handleProfileClick = (event) => {
         setAnchorEl(event.currentTarget);
@@ -24,9 +24,12 @@ function Navbar({ toggleSidebar }) {
                         <Menu className="icons" onClick={toggleSidebar} />
                     </div>
                     <div className="header-left-container-logo">
-                        <img src="https://www.gstatic.com/images/branding/product/1x/keep_2020q4_48dp.png" alt="Image not Found" />
+                        <img 
+                            src="https://www.gstatic.com/images/branding/product/1x/keep_2020q4_48dp.png" 
+                            alt="Image not Found" 
+                        />
                     </div>
-                    <div className="header-left-container-title">Fundoo</div>
+                    <div className="header-left-container-title">{activePage}</div>
                 </div>
             </div>
             <div className="header-right">
@@ -34,7 +37,11 @@ function Navbar({ toggleSidebar }) {
                     <div className="header-middle-search-icon">
                         <Search className="search-icon" />
                     </div>
-                    <input className="header-middle-search-input" type="text" placeholder="Search" />
+                    <input 
+                        className="header-middle-search-input" 
+                        type="text" 
+                        placeholder="Search" 
+                    />
                 </div>
                 <div className="dashboard-header-right-container">
                     <div className="header-right-container-icons">
@@ -45,14 +52,14 @@ function Navbar({ toggleSidebar }) {
                     <div className="header-right-container-account">
                         <div className="icon-div-account2"><Grip className="icons" /></div>
                         <div className="icon-div-account" onClick={handleProfileClick}>
-                            {/* <CircleUser className="icons" /> */}
-                            <Avatar sx={{ bgcolor: "#8a6aff", width: 40, height: 40, fontSize: 20 }}>{firstLetter}</Avatar>
+                            <Avatar sx={{ bgcolor: "#8a6aff", width: 40, height: 40, fontSize: 20 }}>
+                                {firstLetter}
+                            </Avatar>
                         </div>
                     </div>
                 </div>
             </div>
 
-            {/* Profile Menu Pop-up using MUI Popover */}
             <ProfileMenu anchorEl={anchorEl} handleClose={handleClose} />
         </div>
     );

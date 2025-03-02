@@ -40,7 +40,7 @@ const ArchiveContainer = () => {
 
   return (
     <div className="archive-container">
-      <h2>Archived Notes</h2>
+      {/* <h2>Archived Notes</h2> */}
       <div className="notes-list">
         {archivedNotes.length > 0 ? (
           archivedNotes.map((note) => <NoteCard key={note.id} noteDetails={note} updateList={handleArchiveList} />)

@@ -24,7 +24,7 @@ const TrashContainer = () => {
 
   return (
     <div className="trash-container">
-      <h2>Trash</h2>
+      {/* <h2>Trash</h2> */}
       <div className="notes-list">
         {trashNotes.length > 0 ? (
           trashNotes.map((note) => <NoteCard key={note.id} noteDetails={note} updateList={handleTrashList} isTrash />)
