@@ -90,8 +90,9 @@ export default function NoteCard({ noteDetails, updateList, isTrash = false }) {
   return (
     <Card
       sx={{
-        width: 250,
+        width: 200,
         minHeight: 120,
+        // maxHeight:120,
         padding: 1,
         borderRadius: 2,
         boxShadow: "none",

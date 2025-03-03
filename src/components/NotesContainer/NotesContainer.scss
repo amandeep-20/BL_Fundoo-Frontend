@@ -5,10 +5,8 @@
   justify-content: flex-start;
   background-color: white;
   padding: 40px;
-  // min-height: 100vh; // Ensures container takes full height
-  width: 100%; // Full width for flexibility
-  box-sizing: border-box; // Includes padding in width calculation
-  // overflow-y: scroll;
+  box-sizing: border-box; 
+  column-width: 150px;
 }
 
 .note-card {
