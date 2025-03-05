@@ -140,7 +140,7 @@
     }
     .dashboard-header {
         width: 100%;
-        gap: 70px;
+        gap: 190px;
     }
 
     /* Hide unnecessary elements */
@@ -206,7 +206,7 @@
 
 @media (max-width: 480px) {
     .dashboard-header-left-container {
-        margin-left:0px
+        // margin-left:0px
     }
     .header-left {
         width: 150px;

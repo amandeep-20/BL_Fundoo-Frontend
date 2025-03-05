@@ -146,10 +146,9 @@
   }
 
   .note-card {
-    width: 250px; // Full width on mobile
+    width: 360px; // Full width on mobile
+    // margin-left: 10px;
     border-radius: 20px; // Slightly less rounded for smaller screens
-    padding: 6px 10px 0px 6px; // Tighter padding
-    
   }
 
   .text-field {

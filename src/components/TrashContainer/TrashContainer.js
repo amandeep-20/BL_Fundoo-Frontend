@@ -8,9 +8,15 @@ const TrashContainer = () => {
 
   const handleTrashList = ({ action, data }) => {
     if (action === "restore") {
-      setNotesList(notesList.filter((note) => note.id !== data.id));
+      setNotesList((prevNotes) =>
+        prevNotes.map((note) =>
+          note.id === data.id ? { ...note, ...data } : note
+        )
+      );
     } else if (action === "delete") {
-      setNotesList(notesList.filter((note) => note.id !== data.id));
+      setNotesList((prevNotes) =>
+        prevNotes.filter((note) => note.id !== data.id)
+      );
     }
   };
 
