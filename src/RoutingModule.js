@@ -6,20 +6,28 @@ import DashboardContainer from './components/DashboardContainer/DashboardContain
 import NotesContainer from './components/NotesContainer/NotesContainer';
 import ArchiveContainer from './components/ArchiveContainer/ArchiveContainer'
 import TrashContainer from './components/TrashContainer/TrashContainer'
-
+import Reminders from './components/Reminders/Reminders'
+import AuthRoute from './components/ProtectedRoute/AuthRoute';
+import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
 export default function RoutingModule() {
   const routes=createBrowserRouter([ 
     {
       path:"",
-      element:<Login/>
+      element:<AuthRoute>
+        <Login/>
+      </AuthRoute>
     },
     {
       path:"/signup",
-      element:<Signup/>
+      element:<AuthRoute>
+        <Signup/>
+      </AuthRoute>
     },
     {
       path:'/dashboard',
-      element: <DashboardContainer/>,
+      element: <ProtectedRoute>
+        <DashboardContainer/>
+      </ProtectedRoute>,
       children:[
         {
           path:"notes",
@@ -32,6 +40,10 @@ export default function RoutingModule() {
         {
           path:"trash",
           element:<TrashContainer/>
+        },
+        {
+          path:"reminders",
+          element:<Reminders/>
         },
       ]
     },
