@@ -1,5 +1,5 @@
 import React from 'react'
-import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import { createBrowserRouter, Navigate, RouterProvider } from 'react-router-dom'
 import Signup from './components/Signup/Signup';
 import Login from './components/Login/Login';
 import DashboardContainer from './components/DashboardContainer/DashboardContainer';
@@ -29,6 +29,10 @@ export default function RoutingModule() {
         <DashboardContainer/>
       </ProtectedRoute>,
       children:[
+        {
+          index: true, // default child route
+          element: <Navigate to="notes" />
+        },
         {
           path:"notes",
           element: <NotesContainer/>
