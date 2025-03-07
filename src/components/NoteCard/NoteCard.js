@@ -30,7 +30,7 @@ import {
   deleteNoteForeverApiCall,
   changeColorAPI,
   setReminderApiCall,
-  removeReminderApiCall
+  removeReminderApiCall,
 } from "../../utils/Api";
 import AddNote from "../AddNote/AddNote";
 import ColorPalette from "../ColorPalette/ColorPalette";
@@ -42,7 +42,8 @@ export default function NoteCard({ noteDetails, updateList, isTrash = false }) {
   const [showColors, setShowColors] = useState(false);
   const [reminderAnchor, setReminderAnchor] = useState(null);
   const [reminder, setReminder] = useState(noteDetails?.reminder || null);
-  const [tempReminder, setTempReminder] = useState("");
+  const [tempDate, setTempDate] = useState("");
+  const [tempTime, setTempTime] = useState("");
 
   const handleMenuOpen = (event) => setMenuAnchor(event.currentTarget);
   const handleMenuClose = () => setMenuAnchor(null);
@@ -110,48 +111,49 @@ export default function NoteCard({ noteDetails, updateList, isTrash = false }) {
   const handleReminderOpen = (event) => {
     setReminderAnchor(event.currentTarget);
     if (reminder && !isNaN(new Date(reminder).getTime())) {
-      setTempReminder(new Date(reminder).toISOString().slice(0, 16));
+      const date = new Date(reminder);
+      setTempDate(date.toISOString().slice(0, 10));
+      setTempTime(date.toISOString().slice(11, 16));
     } else {
-      setTempReminder("");
+      setTempDate("");
+      setTempTime("");
     }
   };
 
   const handleReminderClose = () => {
     setReminderAnchor(null);
-    setTempReminder("");
+    setTempDate("");
+    setTempTime("");
   };
 
-  const handleChange = (e) => {
-    const localDateTime = e.target.value;
-    const isoFormat = new Date(localDateTime).toISOString();
-    setTempReminder(isoFormat);
-  };
+  const handleDateChange = (e) => setTempDate(e.target.value);
+  const handleTimeChange = (e) => setTempTime(e.target.value);
 
   const handleSubmit = () => {
-    const payload = {
-      noteIdList: [noteDetails?.id],
-      reminder: tempReminder,
-    };
-    setReminderApiCall(payload)
-      .then((response) => {
-        setReminder(tempReminder);
-        updateList({
-          action: "update",
-          data: { ...noteDetails, reminder: tempReminder },
-        });
-        handleReminderClose();
-      })
-      .catch((err) => console.log(err.message));
+    if (tempDate && tempTime) {
+      const combinedDateTime = `${tempDate}T${tempTime}:00.000Z`;
+      const payload = {
+        noteIdList: [noteDetails?.id],
+        reminder: combinedDateTime,
+      };
+      setReminderApiCall(payload)
+        .then((response) => {
+          setReminder(combinedDateTime);
+          updateList({
+            action: "update",
+            data: { ...noteDetails, reminder: combinedDateTime },
+          });
+          handleReminderClose();
+        })
+        .catch((err) => console.log(err.message));
+    }
   };
 
   const handleDeleteReminder = () => {
-    const payload = {
-      noteIdList: [noteDetails?.id],
-      reminder: null, // Set reminder to null to remove it
-    };
+    const payload = { noteIdList: [noteDetails?.id] };
     removeReminderApiCall(payload)
       .then((response) => {
-        setReminder(null); // Clear the reminder locally
+        setReminder(null);
         updateList({
           action: "update",
           data: { ...noteDetails, reminder: null },
@@ -163,8 +165,9 @@ export default function NoteCard({ noteDetails, updateList, isTrash = false }) {
   return (
     <Card
       sx={{
-        width: 200,
+        width: 240,
         minHeight: 155,
+        maxHeight: 300,
         padding: 1,
         borderRadius: 2,
         boxShadow: "none",
@@ -174,23 +177,47 @@ export default function NoteCard({ noteDetails, updateList, isTrash = false }) {
         margin: "10px",
         backgroundColor: noteDetails?.color || "#FFFFFF",
         "&:hover": { boxShadow: 6 },
-        overflow: "hidden",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "space-between",
       }}
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
     >
-      <CardContent onClick={() => !isTrash && setModalOpen(true)}>
-        <Typography variant="body1" fontWeight="bold">
+      <CardContent
+        onClick={() => !isTrash && setModalOpen(true)}
+        sx={{ flexGrow: 1, overflow: "hidden" }}
+      >
+        <Typography
+          variant="body1"
+          fontWeight="bold"
+          sx={{
+            overflow: "hidden",
+            textOverflow: "ellipsis",
+            whiteSpace: "nowrap",
+          }}
+        >
           {noteDetails?.title || "Untitled"}
         </Typography>
-        <Typography variant="body2" color="textSecondary">
+        <Typography
+          variant="body2"
+          color="textSecondary"
+          sx={{
+            maxHeight: 80,
+            overflow: "hidden",
+            textOverflow: "ellipsis",
+            display: "-webkit-box",
+            WebkitLineClamp: 4,
+            WebkitBoxOrient: "vertical",
+          }}
+        >
           {noteDetails?.description || "No description available"}
         </Typography>
         {reminder && !isNaN(new Date(reminder).getTime()) && (
           <Chip
             icon={<NotificationsNoneOutlined sx={{ fontSize: "1rem" }} />}
             label={`${new Date(reminder).toLocaleString()}`}
-            onDelete={handleDeleteReminder} // Add delete functionality
+            onDelete={handleDeleteReminder}
             size="small"
             sx={{
               mt: 1,
@@ -203,6 +230,16 @@ export default function NoteCard({ noteDetails, updateList, isTrash = false }) {
               overflow: "hidden",
               textOverflow: "ellipsis",
               whiteSpace: "nowrap",
+              boxShadow: 1,
+              "& .MuiChip-deleteIcon": {
+                display: "none", // Hide delete icon by default
+              },
+              "&:hover": {
+                boxShadow: 3,
+                "& .MuiChip-deleteIcon": {
+                  display: "block", // Show delete icon on hover
+                },
+              },
             }}
           />
         )}
@@ -214,6 +251,7 @@ export default function NoteCard({ noteDetails, updateList, isTrash = false }) {
             display: "flex",
             justifyContent: "space-between",
             padding: "0 8px 8px",
+            flexShrink: 0,
           }}
         >
           {isTrash ? (
@@ -282,28 +320,50 @@ export default function NoteCard({ noteDetails, updateList, isTrash = false }) {
         transformOrigin={{ vertical: "top", horizontal: "center" }}
       >
         <Box sx={{ p: 2, minWidth: 250 }}>
-          <input
-            type="datetime-local"
-            value={tempReminder}
-            onChange={handleChange}
-            min={new Date().toISOString().slice(0, 16)}
-            style={{
-              width: "100%",
-              padding: "8px",
-              borderRadius: "4px",
-              border: "1px solid #ccc",
-            }}
-          />
-          <Box sx={{ mt: 1, display: "flex", justifyContent: "flex-end" }}>
+          <Box sx={{ mb: 2 }}>
+            <Typography variant="body1" sx={{ mb: 1 }}>
+              Pick Date And Time
+            </Typography>
+            <Typography variant="body2" sx={{ mb: 1 }}>
+              Date
+            </Typography>
+            <input
+              type="date"
+              value={tempDate}
+              onChange={handleDateChange}
+              min={new Date().toISOString().slice(0, 10)}
+              style={{
+                width: "90%",
+                padding: "8px",
+                borderRadius: "4px",
+                border: "1px solid #ccc",
+              }}
+            />
+          </Box>
+          <Box sx={{ mb: 2 }}>
+            <Typography variant="body2" sx={{ mb: 1 }}>
+              Time
+            </Typography>
+            <input
+              type="time"
+              value={tempTime}
+              onChange={handleTimeChange}
+              style={{
+                width: "90%",
+                padding: "8px",
+                borderRadius: "4px",
+                border: "1px solid #ccc",
+              }}
+            />
+          </Box>
+          <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
             <Button onClick={handleReminderClose} sx={{ mr: 1 }}>
               Cancel
             </Button>
             <Button
               onClick={handleSubmit}
               variant="contained"
-              disabled={
-                !tempReminder || isNaN(new Date(tempReminder).getTime())
-              }
+              disabled={!tempDate || !tempTime}
             >
               Save
             </Button>

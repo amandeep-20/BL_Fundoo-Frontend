@@ -5,8 +5,7 @@
   justify-content: flex-start;
   background-color: white;
   padding: 40px;
-  box-sizing: border-box; 
-  column-width: 150px;
+  box-sizing: border-box;
 }
 
 .note-card {
@@ -98,13 +97,13 @@
 
 .notes-list {
   display: grid;
-  grid-template-columns: repeat(4, 1fr); // 4 cards per row by default
-  gap: 20px; // Adds spacing between cards
+  grid-template-columns: repeat(4, 1fr); /* 4 cards per row by default */
+  gap: 20px; /* Spacing between cards */
   margin-top: 20px;
   padding: 10px;
   justify-content: center;
-  width: 100%; // Full width for responsiveness
-  max-width: 1400px; // Caps width on very large screens
+  width: 100%;
+  max-width: 1400px; /* Caps width on very large screens */
   box-sizing: border-box;
 }
 
