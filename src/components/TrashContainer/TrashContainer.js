@@ -3,7 +3,7 @@ import NoteCard from "../NoteCard/NoteCard";
 import { NotesContext } from "../../context/NotesContext";
 
 const TrashContainer = () => {
-  const { notesList, setNotesList, filteredNotes } = useContext(NotesContext);
+  const {  setNotesList, filteredNotes } = useContext(NotesContext);
   const trashNotes = filteredNotes.filter((note) => note.isDeleted);
 
   const handleTrashList = ({ action, data }) => {

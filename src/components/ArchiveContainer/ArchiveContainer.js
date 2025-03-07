@@ -3,7 +3,7 @@ import NoteCard from "../NoteCard/NoteCard";
 import { NotesContext } from "../../context/NotesContext";
 
 const ArchiveContainer = () => {
-  const { notesList, setNotesList, filteredNotes } = useContext(NotesContext);
+  const {  setNotesList, filteredNotes } = useContext(NotesContext);
   const archivedNotes = filteredNotes.filter((note) => note.isArchived && !note.isDeleted);
 
   const handleArchiveList = ({ action, data }) => {
