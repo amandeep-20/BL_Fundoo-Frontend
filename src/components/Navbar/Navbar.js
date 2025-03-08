@@ -30,10 +30,11 @@ function Navbar({ toggleSidebar, activePage }) {
             <Menu className="icons" onClick={toggleSidebar} />
           </div>
           <div className="header-left-container-logo">
-            <image
+          <img
               src="https://www.gstatic.com/images/branding/product/1x/keep_2020q4_48dp.png"
-              alt="Image not Found"
-            />
+              alt="Google Keep logo"
+          />
+
           </div>
           <div className="header-left-container-title">{activePage}</div>
         </div>

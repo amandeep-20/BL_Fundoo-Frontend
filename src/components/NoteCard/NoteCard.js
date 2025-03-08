@@ -45,6 +45,9 @@ export default function NoteCard({ noteDetails, updateList, isTrash = false }) {
   const [tempDate, setTempDate] = useState("");
   const [tempTime, setTempTime] = useState("");
 
+  // Determine if the note has long text (e.g., > 100 characters)
+  const isLongText = (noteDetails?.description?.length || 0) > 100;
+
   const handleMenuOpen = (event) => setMenuAnchor(event.currentTarget);
   const handleMenuClose = () => setMenuAnchor(null);
 
@@ -165,9 +168,9 @@ export default function NoteCard({ noteDetails, updateList, isTrash = false }) {
   return (
     <Card
       sx={{
-        width: 240,
-        minHeight: 155,
-        maxHeight: 300,
+        width: 240, // Fixed width for all cards
+        minHeight: isLongText ? 250 : 155, // Taller for long text
+        maxHeight: isLongText ? 500 : 300, // Much taller max height for long text
         padding: 1,
         borderRadius: 2,
         boxShadow: "none",
@@ -203,11 +206,11 @@ export default function NoteCard({ noteDetails, updateList, isTrash = false }) {
           variant="body2"
           color="textSecondary"
           sx={{
-            maxHeight: 80,
+            maxHeight: isLongText ? 300 : 80, // Much more room for long text
             overflow: "hidden",
             textOverflow: "ellipsis",
             display: "-webkit-box",
-            WebkitLineClamp: 4,
+            WebkitLineClamp: isLongText ? 15 : 4, // More lines for long text
             WebkitBoxOrient: "vertical",
           }}
         >
@@ -231,14 +234,10 @@ export default function NoteCard({ noteDetails, updateList, isTrash = false }) {
               textOverflow: "ellipsis",
               whiteSpace: "nowrap",
               boxShadow: 1,
-              "& .MuiChip-deleteIcon": {
-                display: "none", // Hide delete icon by default
-              },
+              "& .MuiChip-deleteIcon": { display: "none" },
               "&:hover": {
                 boxShadow: 3,
-                "& .MuiChip-deleteIcon": {
-                  display: "block", // Show delete icon on hover
-                },
+                "& .MuiChip-deleteIcon": { display: "block" },
               },
             }}
           />
@@ -271,10 +270,7 @@ export default function NoteCard({ noteDetails, updateList, isTrash = false }) {
               <IconButton size="small">
                 <PersonAddOutlined fontSize="small" />
               </IconButton>
-              <IconButton
-                size="small"
-                onClick={() => setShowColors(!showColors)}
-              >
+              <IconButton size="small" onClick={() => setShowColors(!showColors)}>
                 <PaletteOutlined fontSize="small" />
               </IconButton>
               <IconButton size="small">
@@ -305,10 +301,7 @@ export default function NoteCard({ noteDetails, updateList, isTrash = false }) {
             zIndex: 7,
           }}
         >
-          <ColorPalette
-            onColorSelect={handleColorChange}
-            noteId={noteDetails.id}
-          />
+          <ColorPalette onColorSelect={handleColorChange} noteId={noteDetails.id} />
         </div>
       )}
 

@@ -9,16 +9,16 @@
 }
 
 .note-card {
-  width: 100%; // Fluid width by default
-  max-width: 600px; // Caps width on larger screens
+  width: 100%;
+  max-width: 600px;
   background-color: white;
   padding: 10px 16px 0px 10px;
   border-radius: 50px;
-  box-shadow: 0 2px 100px rgba(0, 0, 0, 0.1); // Adjusted box-shadow for realism (100px was too large)
-  border: 1px solid black; // Changed to valid syntax
+  box-shadow: 0 2px 100px rgba(0, 0, 0, 0.1);
+  border: 1px solid black;
   cursor: text;
-  box-sizing: border-box; // Consistent sizing
-  overflow: visible !important; 
+  box-sizing: border-box;
+  overflow: visible !important;
 }
 
 .expanded {
@@ -75,7 +75,7 @@
   justify-content: space-between;
   width: 100%;
   margin-top: 10px;
-  flex-wrap: wrap; // Allows icons to wrap on smaller screens
+  flex-wrap: wrap;
 }
 
 .icon-button {
@@ -96,62 +96,80 @@
 }
 
 .notes-list {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr); /* 4 cards per row by default */
-  gap: 20px; /* Spacing between cards */
   margin-top: 20px;
   padding: 10px;
   justify-content: center;
   width: 100%;
-  max-width: 1400px; /* Caps width on very large screens */
+  max-width: 1400px;
   box-sizing: border-box;
 }
 
-/* Media Queries for Responsiveness */
+@media (min-width: 901px) {
+  .notes-list {
+    .my-masonry-grid {
+      display: flex;
+      margin-left: -20px;
+      width: auto;
+    }
+
+    .my-masonry-grid_column {
+      padding-left: 20px;
+      background-clip: padding-box;
+    }
+
+    .my-masonry-grid_column > div {
+      margin-bottom: 20px;
+    }
+  }
+}
+
 @media (max-width: 1200px) {
   .notes-list {
-    grid-template-columns: repeat(3, 1fr); // 3 cards per row
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
   }
 
   .note-container {
-    padding: 30px; // Slightly less padding
+    padding: 30px;
   }
 }
 
 @media (max-width: 900px) {
   .notes-list {
-    grid-template-columns: repeat(2, 1fr); // 2 cards per row
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
   }
 
   .note-card {
-    max-width: 500px; // Slightly smaller cards
-    padding: 8px 12px 0px 8px; // Adjusted padding
+    max-width: 500px;
+    padding: 8px 12px 0px 8px;
   }
 
   .icon-row {
-    gap: 5px; // Adds spacing between wrapped icons
+    gap: 5px;
   }
 }
 
-
-@media  screen and (min-width:320px) and (max-width: 427px) {
+@media screen and (min-width: 320px) and (max-width: 427px) {
   .notes-list {
-    grid-template-columns: 1fr; // 1 card per row
-    
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
   }
 
   .note-container {
-    padding: 20px; // Reduced padding for small screens
+    padding: 20px;
   }
 
   .note-card {
-    width: 360px; // Full width on mobile
-    // margin-left: 10px;
-    border-radius: 20px; // Slightly less rounded for smaller screens
+    width: 360px;
+    border-radius: 20px;
   }
 
   .text-field {
-    font-size: 20px; // Smaller text
+    font-size: 20px;
   }
 
   .collapsed-text {
@@ -159,10 +177,10 @@
   }
 
   .icon-row {
-    justify-content: flex-start; // Align icons to left when wrapped
+    justify-content: flex-start;
   }
 
   .close-button {
-    font-size: 12px; // Smaller button text
+    font-size: 12px;
   }
 }
