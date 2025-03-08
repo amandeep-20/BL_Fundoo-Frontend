@@ -10,7 +10,8 @@ import {
 import "./Login.scss";
 import { loginApiCall } from "../../utils/Api";
 import { Link as RouterLink, useNavigate } from "react-router-dom";
-import { Link as MuiLink } from "@mui/material"; // Import MUI's Link separately
+import { Link as MuiLink } from "@mui/material";
+import toast from "react-hot-toast"; // Import toast from react-hot-toast
 
 const Login = () => {
   const navigate = useNavigate();
@@ -20,11 +21,9 @@ const Login = () => {
 
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
-  const [apiError, setApiError] = useState(""); // State to store API error
+  const [apiError, setApiError] = useState("");
 
   const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-  // const passwordRegex =
-  //   /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
 
   const handleLogin = async () => {
     let isValid = true;
@@ -37,15 +36,6 @@ const Login = () => {
       setEmailError("");
     }
 
-    // if (!passwordRegex.test(password)) {
-    //   setPasswordError(
-    //     "Password must be at least 8 characters, include uppercase, lowercase, number, and special character."
-    //   );
-    //   isValid = false;
-    // } else {
-    //   setPasswordError("");
-    // }
-
     if (!password) {
       setPasswordError("Password is required");
       isValid = false;
@@ -57,11 +47,20 @@ const Login = () => {
       loginApiCall({ email, password })
         .then((res) => {
           console.log("Login successful:", res);
+          toast.success("Login successful!", {
+            duration: 3000, // 3 seconds
+            position: "top-right",
+          });
+          localStorage.setItem("email", email); // Optional: store email for Navbar
           navigate("/dashboard/notes");
         })
         .catch((err) => {
           console.error("Login error:", err.message);
-          setApiError("Invalid email or password. Please try again."); // Set API error message
+          setApiError("Invalid email or password. Please try again.");
+          toast.error("Login failed. Please check your credentials.", {
+            duration: 3000,
+            position: "top-right",
+          }); // Optional: error toast
         });
     }
   };

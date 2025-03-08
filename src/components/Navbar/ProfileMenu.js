@@ -1,18 +1,24 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { Popover, Typography, Button, Avatar, Box } from "@mui/material";
-
+import toast from "react-hot-toast";
 const ProfileMenu = ({ anchorEl, handleClose }) => {
     const open = Boolean(anchorEl);
     const id = open ? "profile-popover" : undefined;
     const navigate = useNavigate();
-    const email = localStorage.getItem("email");
+    const email = localStorage.getItem("email") || "User"; 
     const firstLetter = email.charAt(0).toLocaleUpperCase();
     const firsFourtLetter = email.slice(0,5);
     const handleLogout = ()=>{
+        toast.success("Logged out successfully!",{
+            duration:3000,
+            position: "bottom-right"
+        })
         localStorage.clear();
-        // handleClose();
+        handleClose();
+        setTimeout(()=>{
         navigate("/");
+        },500)
     }
 
     return (

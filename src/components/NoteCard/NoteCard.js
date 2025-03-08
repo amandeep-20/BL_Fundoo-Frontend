@@ -11,7 +11,7 @@ import {
   Modal,
   Button,
   Chip,
-  Tooltip, 
+  Tooltip,
 } from "@mui/material";
 import {
   NotificationsNoneOutlined,
@@ -35,10 +35,11 @@ import {
 } from "../../utils/Api";
 import AddNote from "../AddNote/AddNote";
 import ColorPalette from "../ColorPalette/ColorPalette";
-import { useOutletContext } from "react-router-dom"; // Added to get view context
+import { useOutletContext } from "react-router-dom";
+import toast from "react-hot-toast"; // Import toast from react-hot-toast
 
 export default function NoteCard({ noteDetails, updateList, isTrash = false }) {
-  const { isGridView } = useOutletContext(); // Get view state
+  const { isGridView } = useOutletContext();
   const [hover, setHover] = useState(false);
   const [menuAnchor, setMenuAnchor] = useState(null);
   const [modalOpen, setModalOpen] = useState(false);
@@ -59,10 +60,20 @@ export default function NoteCard({ noteDetails, updateList, isTrash = false }) {
     } else if (action === "color") {
       setShowColors(false);
       changeColorAPI({ noteIdList: [`${noteDetails.id}`], color: data })
-        .then(() =>
-          updateList({ action: "color", data: { ...noteDetails, color: data } })
-        )
-        .catch((err) => console.error("Error changing color:", err));
+        .then(() => {
+          toast.success("Note color changed!", {
+            duration: 3000,
+            position: "top-right",
+          });
+          updateList({ action: "color", data: { ...noteDetails, color: data } });
+        })
+        .catch((err) => {
+          console.error("Error changing color:", err);
+          toast.error("Failed to change color", {
+            duration: 3000,
+            position: "top-right",
+          });
+        });
     }
   };
 
@@ -74,21 +85,41 @@ export default function NoteCard({ noteDetails, updateList, isTrash = false }) {
     })
       .then((response) => {
         const updatedNote = { ...noteDetails, isArchived: newArchiveStatus };
+        toast.success(newArchiveStatus ? "Note archived!" : "Note unarchived!", {
+          duration: 3000,
+          position: "top-right",
+        });
         updateList({
           data: updatedNote,
           action: newArchiveStatus ? "archive" : "unarchive",
         });
       })
-      .catch((err) => console.error("Error updating archive status:", err));
+      .catch((err) => {
+        console.error("Error updating archive status:", err);
+        toast.error(`Failed to ${newArchiveStatus ? "archive" : "unarchive"} note`, {
+          duration: 3000,
+          position: "top-right",
+        });
+      });
   };
 
   const handleMoveToTrash = () => {
     trashNotesApiCall({ noteIdList: [noteDetails.id], isDeleted: true })
       .then((response) => {
         const updatedNote = { ...noteDetails, isDeleted: true };
+        toast.success("Note moved to trash!", {
+          duration: 3000,
+          position: "top-right",
+        });
         updateList({ data: updatedNote, action: "delete" });
       })
-      .catch((err) => console.error("Error moving note to trash:", err));
+      .catch((err) => {
+        console.error("Error moving note to trash:", err);
+        toast.error("Failed to move note to trash", {
+          duration: 3000,
+          position: "top-right",
+        });
+      });
     handleMenuClose();
   };
 
@@ -96,17 +127,37 @@ export default function NoteCard({ noteDetails, updateList, isTrash = false }) {
     restoreNotesApiCall({ noteIdList: [noteDetails.id], isDeleted: false })
       .then((response) => {
         const updatedNote = { ...noteDetails, isDeleted: false };
+        toast.success("Note restored!", {
+          duration: 3000,
+          position: "top-right",
+        });
         updateList({ data: updatedNote, action: "restore" });
       })
-      .catch((err) => console.error("Error restoring note:", err));
+      .catch((err) => {
+        console.error("Error restoring note:", err);
+        toast.error("Failed to restore note", {
+          duration: 3000,
+          position: "top-right",
+        });
+      });
   };
 
   const handleDeleteForever = () => {
     deleteNoteForeverApiCall({ noteIdList: [noteDetails.id] })
       .then(() => {
+        toast.success("Note deleted permanently!", {
+          duration: 3000,
+          position: "top-right",
+        });
         updateList({ data: noteDetails, action: "delete" });
       })
-      .catch((err) => console.error("Error deleting note permanently:", err));
+      .catch((err) => {
+        console.error("Error deleting note permanently:", err);
+        toast.error("Failed to delete note permanently", {
+          duration: 3000,
+          position: "top-right",
+        });
+      });
   };
 
   const handleColorChange = ({ noteId, color }) => {
@@ -170,7 +221,7 @@ export default function NoteCard({ noteDetails, updateList, isTrash = false }) {
   return (
     <Card
       sx={{
-        width: isGridView ? 240 : '100%', // Full width in list view
+        width: isGridView ? 240 : "100%",
         minHeight: isLongText ? 250 : 155,
         maxHeight: isLongText ? 500 : 300,
         padding: 1,
