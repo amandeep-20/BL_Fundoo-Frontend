@@ -1,9 +1,12 @@
 import React, { useContext } from "react";
-import { NotesContext } from "../../context/NotesContext"; // Adjust the path based on your file structure
-import NoteCard from "../NoteCard/NoteCard"; // Adjust the path based on your file structure
-import { Box, Typography } from "@mui/material";
+import { useOutletContext } from "react-router-dom"; // Added for grid/list view
+import { NotesContext } from "../../context/NotesContext";
+import NoteCard from "../NoteCard/NoteCard";
+import {  Typography } from "@mui/material";
+import "./Reminders.scss"; // Import the new SCSS file
 
 export default function Reminders() {
+  const { isGridView } = useOutletContext(); // Get grid/list view state
   const { notesList, setNotesList } = useContext(NotesContext);
 
   // Filter notes that have a reminder set and are not in the trash
@@ -38,15 +41,9 @@ export default function Reminders() {
   };
 
   return (
-    <Box sx={{ padding: 2 }}>
+    <div className={`reminders-container ${isGridView ? 'grid-view' : 'list-view'}`}>
       {reminderNotes.length > 0 ? (
-        <Box
-          sx={{
-            display: "flex",
-            flexWrap: "wrap",
-            gap: 2,
-          }}
-        >
+        <div className="notes-list">
           {reminderNotes.map((note) => (
             <NoteCard
               key={note.id}
@@ -55,12 +52,12 @@ export default function Reminders() {
               isTrash={false} // Since these are active reminders, not in trash
             />
           ))}
-        </Box>
+        </div>
       ) : (
         <Typography variant="body1" color="textSecondary">
           No reminders set.
         </Typography>
       )}
-    </Box>
+    </div>
   );
 }

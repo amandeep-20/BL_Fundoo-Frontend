@@ -1,0 +1,101 @@
+.reminders-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    background-color: white;
+    padding: 40px;
+    box-sizing: border-box;
+    width: 100%;
+  
+    &.grid-view {
+      .notes-list {
+        width: 100%;
+        max-width: 1400px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+        justify-content: center;
+      }
+    }
+  
+    &.list-view {
+      .notes-list {
+        display: flex;
+        flex-direction: column;
+        gap:  20px;
+        align-items: center;
+        width: 100%;
+        max-width: 600px; // Matches NotesContainer for wider cards
+  
+        .note-card {
+          width: 100%;
+          max-width: 800px; // Matches NotesContainer for wider cards
+          margin: 0 0 20px 0; // Matches NotesContainer bottom margin
+        }
+      }
+    }
+  }
+  
+  .notes-list {
+    margin-top: 20px;
+    padding: 10px;
+    justify-content: center;
+    width: 100%;
+    max-width: 1400px;
+    box-sizing: border-box;
+  }
+  
+  @media (max-width: 1200px) {
+    .reminders-container.grid-view {
+      .notes-list {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+      }
+    }
+  
+    .reminders-container {
+      padding: 30px;
+    }
+  }
+  
+  @media (max-width: 900px) {
+    .reminders-container.list-view {
+      .notes-list {
+        .note-card {
+          max-width: 700px; // Matches NotesContainer
+        }
+      }
+    }
+  
+    .reminders-container.grid-view {
+      .notes-list {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+      }
+    }
+  }
+  
+  @media screen and (min-width: 320px) and (max-width: 427px) {
+    .reminders-container.grid-view {
+      .notes-list {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+    }
+  
+    .reminders-container.list-view {
+      .notes-list {
+        .note-card {
+          max-width: 360px; // Matches NotesContainer
+        }
+      }
+    }
+  
+    .reminders-container {
+      padding: 20px;
+    }
+  }

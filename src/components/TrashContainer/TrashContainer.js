@@ -1,10 +1,12 @@
 import React, { useContext, useEffect, useState } from "react";
+import { useOutletContext } from "react-router-dom"; // Added to get context
 import Masonry from "react-masonry-css";
 import NoteCard from "../NoteCard/NoteCard";
 import { NotesContext } from "../../context/NotesContext";
-import "./TrashContainer.scss"; // Import the SCSS file
+import "./TrashContainer.scss";
 
 const TrashContainer = () => {
+  const { isGridView } = useOutletContext(); // Get isGridView from Outlet context
   const { setNotesList, filteredNotes } = useContext(NotesContext);
   const trashNotes = filteredNotes.filter((note) => note.isDeleted);
   const [isLargeScreen, setIsLargeScreen] = useState(window.innerWidth > 900);
@@ -32,15 +34,15 @@ const TrashContainer = () => {
   };
 
   const breakpointCols = {
-    default: 4, // 4 columns by default
-    1200: 3,   // 3 columns below 1200px
+    default: 4,
+    1200: 3,
   };
 
   return (
-    <div className="trash-container">
+    <div className={`trash-container ${isGridView ? 'grid-view' : 'list-view'}`}>
       <div className="notes-list">
         {trashNotes.length > 0 ? (
-          isLargeScreen ? (
+          isLargeScreen && isGridView ? (
             <Masonry
               breakpointCols={breakpointCols}
               className="my-masonry-grid"

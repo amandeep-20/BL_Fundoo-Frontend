@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
+import { useOutletContext } from "react-router-dom"; // Added to get context
 import Masonry from "react-masonry-css";
 import NoteCard from "../NoteCard/NoteCard";
 import AddNote from "../AddNote/AddNote";
@@ -6,6 +7,7 @@ import "./NotesContainer.scss";
 import { NotesContext } from "../../context/NotesContext";
 
 const NotesContainer = () => {
+  const { isGridView } = useOutletContext(); // Get isGridView from Outlet context
   const { notesList, setNotesList, filteredNotes } = useContext(NotesContext);
   const activeNotes = filteredNotes.filter((note) => !note.isArchived && !note.isDeleted);
   const [isLargeScreen, setIsLargeScreen] = useState(window.innerWidth > 900);
@@ -49,16 +51,16 @@ const NotesContainer = () => {
   };
 
   const breakpointCols = {
-    default: 4, // 4 columns by default
-    1200: 3,   // 3 columns below 1200px
+    default: 4,
+    1200: 3,
   };
 
   return (
-    <div className="note-container">
+    <div className={`note-container ${isGridView ? 'grid-view' : 'list-view'}`}>
       <AddNote updateList={handleNotesList} />
       <div className="notes-list">
         {activeNotes.length > 0 ? (
-          isLargeScreen ? (
+          isLargeScreen && isGridView ? (
             <Masonry
               breakpointCols={breakpointCols}
               className="my-masonry-grid"

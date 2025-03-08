@@ -35,8 +35,10 @@ import {
 } from "../../utils/Api";
 import AddNote from "../AddNote/AddNote";
 import ColorPalette from "../ColorPalette/ColorPalette";
+import { useOutletContext } from "react-router-dom"; // Added to get view context
 
 export default function NoteCard({ noteDetails, updateList, isTrash = false }) {
+  const { isGridView } = useOutletContext(); // Get view state
   const [hover, setHover] = useState(false);
   const [menuAnchor, setMenuAnchor] = useState(null);
   const [modalOpen, setModalOpen] = useState(false);
@@ -168,7 +170,7 @@ export default function NoteCard({ noteDetails, updateList, isTrash = false }) {
   return (
     <Card
       sx={{
-        width: 240,
+        width: isGridView ? 240 : '100%', // Full width in list view
         minHeight: isLongText ? 250 : 155,
         maxHeight: isLongText ? 500 : 300,
         padding: 1,
@@ -177,7 +179,7 @@ export default function NoteCard({ noteDetails, updateList, isTrash = false }) {
         border: "1px solid #ccc",
         transition: "box-shadow 0.3s ease-in-out",
         position: "relative",
-        margin: "10px",
+        margin: "-5px",
         backgroundColor: noteDetails?.color || "#FFFFFF",
         "&:hover": { boxShadow: 6 },
         display: "flex",
