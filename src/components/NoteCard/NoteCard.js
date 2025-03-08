@@ -11,6 +11,7 @@ import {
   Modal,
   Button,
   Chip,
+  Tooltip, 
 } from "@mui/material";
 import {
   NotificationsNoneOutlined,
@@ -45,7 +46,6 @@ export default function NoteCard({ noteDetails, updateList, isTrash = false }) {
   const [tempDate, setTempDate] = useState("");
   const [tempTime, setTempTime] = useState("");
 
-  // Determine if the note has long text (e.g., > 100 characters)
   const isLongText = (noteDetails?.description?.length || 0) > 100;
 
   const handleMenuOpen = (event) => setMenuAnchor(event.currentTarget);
@@ -168,9 +168,9 @@ export default function NoteCard({ noteDetails, updateList, isTrash = false }) {
   return (
     <Card
       sx={{
-        width: 240, // Fixed width for all cards
-        minHeight: isLongText ? 250 : 155, // Taller for long text
-        maxHeight: isLongText ? 500 : 300, // Much taller max height for long text
+        width: 240,
+        minHeight: isLongText ? 250 : 155,
+        maxHeight: isLongText ? 500 : 300,
         padding: 1,
         borderRadius: 2,
         boxShadow: "none",
@@ -206,11 +206,11 @@ export default function NoteCard({ noteDetails, updateList, isTrash = false }) {
           variant="body2"
           color="textSecondary"
           sx={{
-            maxHeight: isLongText ? 300 : 80, // Much more room for long text
+            maxHeight: isLongText ? 300 : 80,
             overflow: "hidden",
             textOverflow: "ellipsis",
             display: "-webkit-box",
-            WebkitLineClamp: isLongText ? 15 : 4, // More lines for long text
+            WebkitLineClamp: isLongText ? 15 : 4,
             WebkitBoxOrient: "vertical",
           }}
         >
@@ -255,37 +255,53 @@ export default function NoteCard({ noteDetails, updateList, isTrash = false }) {
         >
           {isTrash ? (
             <>
-              <IconButton size="small" onClick={handleRestore}>
-                <RestoreFromTrashOutlined fontSize="small" />
-              </IconButton>
-              <IconButton size="small" onClick={handleDeleteForever}>
-                <DeleteOutlined fontSize="small" />
-              </IconButton>
+              <Tooltip title="Restore">
+                <IconButton size="small" onClick={handleRestore}>
+                  <RestoreFromTrashOutlined fontSize="small" />
+                </IconButton>
+              </Tooltip>
+              <Tooltip title="Delete forever">
+                <IconButton size="small" onClick={handleDeleteForever}>
+                  <DeleteOutlined fontSize="small" />
+                </IconButton>
+              </Tooltip>
             </>
           ) : (
             <>
-              <IconButton size="small" onClick={handleReminderOpen}>
-                <NotificationsNoneOutlined fontSize="small" />
-              </IconButton>
-              <IconButton size="small">
-                <PersonAddOutlined fontSize="small" />
-              </IconButton>
-              <IconButton size="small" onClick={() => setShowColors(!showColors)}>
-                <PaletteOutlined fontSize="small" />
-              </IconButton>
-              <IconButton size="small">
-                <ImageOutlined fontSize="small" />
-              </IconButton>
-              <IconButton size="small" onClick={handleArchiveToggle}>
-                {noteDetails.isArchived ? (
-                  <UnarchiveOutlined fontSize="small" />
-                ) : (
-                  <ArchiveOutlined fontSize="small" />
-                )}
-              </IconButton>
-              <IconButton size="small" onClick={handleMenuOpen}>
-                <MoreVertOutlined fontSize="small" />
-              </IconButton>
+              <Tooltip title="Remind me">
+                <IconButton size="small" onClick={handleReminderOpen}>
+                  <NotificationsNoneOutlined fontSize="small" />
+                </IconButton>
+              </Tooltip>
+              <Tooltip title="Collaborator">
+                <IconButton size="small">
+                  <PersonAddOutlined fontSize="small" />
+                </IconButton>
+              </Tooltip>
+              <Tooltip title="Change color">
+                <IconButton size="small" onClick={() => setShowColors(!showColors)}>
+                  <PaletteOutlined fontSize="small" />
+                </IconButton>
+              </Tooltip>
+              <Tooltip title="Add image">
+                <IconButton size="small">
+                  <ImageOutlined fontSize="small" />
+                </IconButton>
+              </Tooltip>
+              <Tooltip title={noteDetails.isArchived ? "Unarchive" : "Archive"}>
+                <IconButton size="small" onClick={handleArchiveToggle}>
+                  {noteDetails.isArchived ? (
+                    <UnarchiveOutlined fontSize="small" />
+                  ) : (
+                    <ArchiveOutlined fontSize="small" />
+                  )}
+                </IconButton>
+              </Tooltip>
+              <Tooltip title="More">
+                <IconButton size="small" onClick={handleMenuOpen}>
+                  <MoreVertOutlined fontSize="small" />
+                </IconButton>
+              </Tooltip>
             </>
           )}
         </Box>

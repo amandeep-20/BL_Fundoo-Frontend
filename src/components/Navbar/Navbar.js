@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react";
 import "./Navbar.scss";
 import { Menu, RotateCw, Settings, Rows2, Grip, Search } from "lucide-react";
-import { Avatar } from "@mui/material";
+import { Avatar, Tooltip } from "@mui/material";
 import ProfileMenu from "./ProfileMenu";
 import { NotesContext } from "../../context/NotesContext";
 
@@ -27,14 +27,15 @@ function Navbar({ toggleSidebar, activePage }) {
       <div className="header-left">
         <div className="dashboard-header-left-container">
           <div className="header-left-container-menu">
+            <Tooltip title="Main Menu">
             <Menu className="icons" onClick={toggleSidebar} />
+            </Tooltip>
           </div>
           <div className="header-left-container-logo">
-          <img
+            <img
               src="https://www.gstatic.com/images/branding/product/1x/keep_2020q4_48dp.png"
               alt="Google Keep logo"
-          />
-
+            />
           </div>
           <div className="header-left-container-title">{activePage}</div>
         </div>
@@ -53,16 +54,28 @@ function Navbar({ toggleSidebar, activePage }) {
         </div>
         <div className="dashboard-header-right-container">
           <div className="header-right-container-icons">
-            <div className="icon-div"><RotateCw className="icons" /></div>
-            <div className="icon-div row-icon"><Rows2 className="icons" /></div>
-            <div className="icon-div"><Settings className="icons" /></div>
+              <Tooltip title="Refresh">
+              <RotateCw className="icons" />
+              </Tooltip>
+            <div className="icon-div row-icon tooltip-wrapper">
+            <Tooltip title="List view">
+              <Rows2 className="icons" />
+              </Tooltip>
+            </div>
+            <Tooltip title="settings">
+              <Settings className="icons" />
+            </Tooltip>
           </div>
           <div className="header-right-container-account">
-            <div className="icon-div-account2"><Grip className="icons" /></div>
+          <Tooltip title="Goggle apps">
+              <Grip className="icons" />
+            </Tooltip>
             <div className="icon-div-account" onClick={handleProfileClick}>
+              <Tooltip title="profile">
               <Avatar sx={{ bgcolor: "#8a6aff", width: 40, height: 40, fontSize: 20 }}>
                 {firstLetter}
               </Avatar>
+              </Tooltip>
             </div>
           </div>
         </div>
