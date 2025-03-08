@@ -1,9 +1,14 @@
 .dashboard-sidebar {
     width: 17%;
-    height: 90vh;
-    margin-top: 15px;
+    height: calc(100vh - 65px); // Full height minus navbar height
+    margin-top: 65px; // Offset by navbar height (min-height: 65px)
     transition: width 0.3s ease-in-out;
     margin-right: 10px;
+    position: fixed; // Fix the sidebar on the left
+    top: 0; // Align with top of viewport, but offset by margin-top
+    left: 0;
+    z-index: 900; // Below navbar (z-index: 1000) but above content
+    background-color: #fff; // Ensure solid background (adjust if needed)
 
     a {
         text-decoration: none;
@@ -69,6 +74,10 @@
     .dashboard-sidebar {
         width: 55px;
         transition: width 0.3s ease-in-out;
+        height: calc(100vh - 65px); // Adjust for fixed navbar
+        margin-top: 65px; // Keep offset
+        position: fixed; // Remain fixed on mobile
+        left: 0;
     }
 
     .sidebar-column {

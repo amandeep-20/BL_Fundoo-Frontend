@@ -8,7 +8,7 @@ import { NotesProvider } from "../../context/NotesContext";
 const DashboardContainer = () => {
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [activePage, setActivePage] = useState("Notes");
-  const [isGridView, setIsGridView] = useState(true); // Added view state
+  const [isGridView, setIsGridView] = useState(true);
 
   const toggleSidebar = () => {
     setIsCollapsed((prev) => !prev);
@@ -28,14 +28,14 @@ const DashboardContainer = () => {
         <Navbar 
           toggleSidebar={toggleSidebar} 
           activePage={activePage}
-          onViewChange={handleViewChange} // Added prop
+          onViewChange={handleViewChange}
         />
         <div className="dashboard-main-center">
           <Sidebar 
             isCollapsed={isCollapsed} 
             onPageChange={handlePageChange} 
           />
-          <Outlet context={{ isGridView }} /> {/* Pass isGridView through Outlet */}
+          <Outlet context={{ isGridView }} />
         </div>
       </div>
     </NotesProvider>
