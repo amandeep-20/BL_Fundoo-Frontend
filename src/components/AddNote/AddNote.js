@@ -1,5 +1,6 @@
 // src/components/AddNote/AddNote.js
 import React, { useRef, useEffect, useState, useCallback } from "react";
+import './AddNote.scss'
 import {
   TextField,
   Card,

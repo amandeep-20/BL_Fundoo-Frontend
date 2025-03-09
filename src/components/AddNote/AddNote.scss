@@ -1,0 +1,21 @@
+.css-4mfzl0 {
+    background-color: transparent !important; 
+    box-shadow: none !important;              
+    width: 600px !important;                   
+    border: none !important;                  
+    outline: none !important;              
+}
+
+.css-1j74uew-MuiPaper-root-MuiCard-root {
+    background-image:none !important;
+    // margin-right: 280px !important;
+}   
+
+
+
+@media screen and (min-width: 320px) and (max-width: 427px) {
+    .css-4mfzl0 {
+        width: 400px !important;
+        margin-left: 50px !important;
+    }
+}
