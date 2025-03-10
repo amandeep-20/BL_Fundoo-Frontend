@@ -1,22 +1,30 @@
 .dashboard-sidebar {
     width: 17%;
     height: calc(100vh - 65px); // Full height minus navbar height
-    margin-top: 65px; // Offset by navbar height (min-height: 65px)
+    margin-top: 60px; // Offset by navbar height
     transition: width 0.3s ease-in-out;
     margin-right: 10px;
-    position: fixed; // Fix the sidebar on the left
-    top: 0; // Align with top of viewport, but offset by margin-top
+    position: fixed;
+    top: 0;
     left: 0;
-    z-index: 900; // Below navbar (z-index: 1000) but above content
-    background-color: #fff; // Ensure solid background (adjust if needed)
-
+    z-index: 900;
+    background-color: #fff;
+    display: flex; // Ensure flex context for children
+    flex-direction: column; // Stack children vertically
+    padding: 0; // Remove any default padding
+    // margin: 0; // Remove any default margin
+  
     a {
-        text-decoration: none;
-        color: #5F6368;
+      text-decoration: none;
+      color: #5F6368;
+      width: 100%; // Ensure full width
+      display: block; // Make NavLink a block element
+      margin: 0; // Remove default margins
+      padding: 0; // Remove default padding
     }
-}
-
-.sidebar-column {
+  }
+  
+  .sidebar-column {
     width: 95%;
     height: 48px;
     border-top-right-radius: 50px;
@@ -26,79 +34,93 @@
     padding-left: 10px;
     gap: 10%;
     transition: all 0.3s ease-in-out;
-}
-
-.sidebar-text {
+    margin: 0; // Ensure no default margins
+    box-sizing: border-box; // Include padding in width/height
+  }
+  
+  .sidebar-text {
     font-size: 18px;
     font-weight: 400;
     transition: opacity 0.3s ease-in-out;
-}
-
-.sidebar-icon {
+    margin: 0; // Remove default margins
+  }
+  
+  .sidebar-icon {
     color: #5F6368;
-    transition: background 0.3s ease-in-out, color 0.1s ease-in-out;
-}
-
-.notes {
+    width: 24px;
+    height: 24px;
+    transition: all 0.3s ease-in-out;
+  }
+  
+  .notes {
     background-color: #FEEFC3;
-}
-
-.dashboard-sidebar.collapsed {
+  }
+  
+  .dashboard-sidebar.collapsed {
     width: 55px;
     transition: width 0.3s ease-in-out;
-
+  
     .sidebar-column {
-        justify-content: center;
-        margin: 0 10px;
-        padding-left: 0;
-        gap: 0;
-        border-radius: 50%;
+      width: 100%; // Full width of collapsed sidebar
+      height: 50px; // Consistent height for circle
+      justify-content: center;
+      padding: 0; // No padding
+      margin: 0; // No margins
+      gap: 0; // No gap
+      border-radius: 50%; // Circular shape
+      box-sizing: border-box; // Include padding/border
     }
-
+  
     .sidebar-text {
-        display: none;
+      display: none;
     }
-
+  
     .sidebar-icon {
-        width: 25px;
-        height: 25px;
+      width: 25px;
+      height: 25px;
+      margin: 0 auto; // Center horizontally
+      display: flex;
+      align-items: center;
+      justify-content: center; // Center vertically
     }
-
+  
     .notes {
-        border-radius: 50%;
-        background-color: #FEEFC3;
+      border-radius: 50%;
+      background-color: #FEEFC3;
     }
-}
-
-@media (max-width: 768px) {
+  }
+  
+  @media (max-width: 768px) {
     .dashboard-sidebar {
-        width: 55px;
-        transition: width 0.3s ease-in-out;
-        height: calc(100vh - 65px); // Adjust for fixed navbar
-        margin-top: 65px; // Keep offset
-        position: fixed; // Remain fixed on mobile
-        left: 0;
+      width: 55px;
+      transition: width 0.3s ease-in-out;
+      height: calc(100vh - 65px);
+      margin-top: 65px;
+      position: fixed;
+      left: 0;
     }
-
+  
     .sidebar-column {
-        justify-content: center;
-        margin: 0 10px;
-        padding-left: 0;
-        gap: 0;
-        border-radius: 50%;
+      width: 100%;
+      height: 50px;
+      justify-content: center;
+      padding: 0;
+      margin: 0;
+      gap: 0;
+      border-radius: 50%;
     }
-
+  
     .sidebar-text {
-        display: none;
+      display: none;
     }
-
+  
     .sidebar-icon {
-        width: 25px;
-        height: 25px;
+      width: 25px;
+      height: 25px;
     }
-
+  
     .notes {
-        border-radius: 50%;
-        background-color: #FEEFC3;
+      border-radius: 50%;
+      background-color: #FEEFC3;
     }
-}
+  }
