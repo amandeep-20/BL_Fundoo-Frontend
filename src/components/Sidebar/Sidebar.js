@@ -2,7 +2,7 @@ import React from 'react';
 import '../DashboardContainer/DashboardContainer.scss';
 import { Lightbulb, FolderDown, Trash2, Bell } from "lucide-react";
 import './Sidebar.scss';
-import { NavLink, useLocation } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';  // Removed useLocation import
 
 const sidebarItemsList = [
   { name: "Notes", icon: Lightbulb, path: '/dashboard/notes' },
@@ -12,8 +12,6 @@ const sidebarItemsList = [
 ];
 
 const Sidebar = ({ isCollapsed, onPageChange }) => {
-  const location = useLocation();
-
   const handleNavClick = (itemName) => {
     onPageChange(itemName);
   };
@@ -22,7 +20,6 @@ const Sidebar = ({ isCollapsed, onPageChange }) => {
     <div className={`dashboard-sidebar ${isCollapsed ? 'collapsed' : ''}`}>
       {sidebarItemsList.map((item, index) => {
         const IconComponent = item.icon;
-        const isActive = location.pathname === item.path;
         return (
           <NavLink
             to={item.path}

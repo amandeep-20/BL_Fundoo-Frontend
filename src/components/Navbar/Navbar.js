@@ -1,15 +1,17 @@
 import React, { useState, useContext } from "react";
 import "./Navbar.scss";
-import { Menu, RotateCw, Settings, Rows2, Grip,Grid, Search } from "lucide-react";
+import { Menu, RotateCw, Settings, Rows2, Grip, Grid, Search, Loader2 } from "lucide-react";
 import { Avatar, Tooltip } from "@mui/material";
 import ProfileMenu from "./ProfileMenu";
 import { NotesContext } from "../../context/NotesContext";
+import { getNotes } from "../../utils/Api"; // Import the API function
 
 function Navbar({ toggleSidebar, activePage, onViewChange }) {
   const [anchorEl, setAnchorEl] = useState(null);
   const [isGridView, setIsGridView] = useState(true);
-  const { setSearchQuery } = useContext(NotesContext);
+  const { setNotesList, setSearchQuery } = useContext(NotesContext); // Access setNotesList
   const firstLetter = localStorage.getItem("email")?.charAt(0).toLocaleUpperCase() || "U";
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleProfileClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -26,6 +28,21 @@ function Navbar({ toggleSidebar, activePage, onViewChange }) {
   const handleViewToggle = () => {
     setIsGridView(!isGridView);
     onViewChange(!isGridView);
+  };
+
+  const handleRefresh = () => {
+    setIsLoading(true); // Start loading
+    getNotes()
+      .then((data) => {
+        const allNotes = data?.data?.data?.data || [];
+        setNotesList(allNotes); // Update notes list with fresh data
+      })
+      .catch((error) => {
+        setNotesList([]); // Reset to empty list on failure
+      })
+      .finally(() => {
+        setIsLoading(false); // Stop loading regardless of success or failure
+      });
   };
 
   return (
@@ -61,7 +78,11 @@ function Navbar({ toggleSidebar, activePage, onViewChange }) {
         <div className="dashboard-header-right-container">
           <div className="header-right-container-icons">
             <Tooltip title="Refresh">
-              <RotateCw className="icons" />
+              {isLoading ? (
+                <Loader2 className="icons loading-icon" />
+              ) : (
+                <RotateCw className="icons" onClick={handleRefresh} />
+              )}
             </Tooltip>
             <div className="icon-div row-icon tooltip-wrapper">
               <Tooltip title={isGridView ? "List view" : "Grid view"}>
