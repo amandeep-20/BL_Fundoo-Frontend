@@ -18,14 +18,9 @@ const Signup = () => {
   // State for error messages
   const [firstNameError, setFirstNameError] = useState("");
   const [lastNameError, setLastNameError] = useState("");
-  // const [usernameError, setUsernameError] = useState("");
-  // const [passwordError, setPasswordError] = useState("");
   const [confirmPasswordError, setConfirmPasswordError] = useState("");
 
-  // Regex patterns
-  const nameRegex = /^[a-zA-Z]{2,}$/; // At least 2 characters
-  // const usernameRegex = /^[a-zA-Z0-9.]{3,}$/; // At least 3 characters 
-  // const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/;
+  const nameRegex = /^[a-zA-Z]{2,}$/; 
 
   const navigate = useNavigate(null);
   const handleSignup = (e) => {
@@ -48,25 +43,6 @@ const Signup = () => {
       setLastNameError("");
     }
 
-    // Username validation
-    // if (!usernameRegex.test(username)) {
-    //   setUsernameError("Username must be at least 3 characters (letters, numbers, periods)");
-    //   isValid = false;
-    // } else {
-    //   setUsernameError("");
-    // }
-
-    // Password validation
-    // if (!passwordRegex.test(password)) {
-    //   setPasswordError(
-    //     "Password must be at least 6 characters, include uppercase, lowercase, number, and special character"
-    //   );
-    //   isValid = false;
-    // } else {
-    //   setPasswordError("");
-    // }
-
-    // Confirm Password validation
     if (password !== confirmPassword) {
       setConfirmPasswordError("Passwords do not match");
       isValid = false;
@@ -75,7 +51,6 @@ const Signup = () => {
     }
 
     if (isValid) {
-      console.log("Form submitted:", { firstName, lastName, email : username, "service": "advance", password });
       signupApiCall({ firstName, lastName, email : username, "service": "advance", password }).then(()=> navigate("/"));
 
     }
@@ -85,7 +60,6 @@ const Signup = () => {
     <Container component="main" maxWidth="md" className="signup-container">
       <Paper elevation={3} className="signup-paper">
         <Grid2 container spacing={2}>
-          {/* Left Side - Form Section */}
           <Grid2 margin={2} className="signup-left">
             <Typography variant="h5" className="signup-title">Fundo</Typography>
             <Typography variant="h6" className="signup-subtitle">Create your Fundo Account</Typography>
@@ -124,8 +98,6 @@ const Signup = () => {
                     required
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}
-                    // error={!!usernameError}
-                    // helperText={usernameError}
                   />
                   <Typography variant="caption" color="textSecondary" className="signup-txt">
                     You can use letters, numbers & periods
@@ -140,8 +112,6 @@ const Signup = () => {
                     required
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    // error={!!passwordError}
-                    // helperText={passwordError}
                   />
                 </Grid2>
                 <Grid2>
@@ -175,7 +145,6 @@ const Signup = () => {
             </Box>
           </Grid2>
 
-          {/* Right Side - Image Section */}
           <Grid2 className="signup-right">
             <img
               src={imgLogo}
@@ -192,7 +161,6 @@ const Signup = () => {
         </Grid2>
       </Paper>
 
-      {/* Footer */}
       <Box className="footer">
         <Typography variant="caption" className="language-selection">
           English (United States)

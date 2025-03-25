@@ -27,12 +27,12 @@
         gap:  20px;
         align-items: center;
         width: 100%;
-        max-width: 600px; // Matches NotesContainer for wider cards
+        max-width: 600px; 
   
         .note-card {
           width: 100%;
-          max-width: 800px; // Matches NotesContainer for wider cards
-          margin: 0 0 20px 0; // Matches NotesContainer bottom margin
+          max-width: 800px; 
+          margin: 0 0 20px 0;
         }
       }
     }
@@ -65,7 +65,7 @@
     .reminders-container.list-view {
       .notes-list {
         .note-card {
-          max-width: 700px; // Matches NotesContainer
+          max-width: 700px; 
         }
       }
     }
@@ -91,7 +91,7 @@
     .reminders-container.list-view {
       .notes-list {
         .note-card {
-          max-width: 360px; // Matches NotesContainer
+          max-width: 360px; 
         }
       }
     }

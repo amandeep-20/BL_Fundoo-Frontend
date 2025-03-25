@@ -2,7 +2,7 @@ import React from 'react';
 import '../DashboardContainer/DashboardContainer.scss';
 import { Lightbulb, FolderDown, Trash2, Bell } from "lucide-react";
 import './Sidebar.scss';
-import { NavLink } from 'react-router-dom';  // Removed useLocation import
+import { NavLink } from 'react-router-dom'; 
 
 const sidebarItemsList = [
   { name: "Notes", icon: Lightbulb, path: '/dashboard/notes' },

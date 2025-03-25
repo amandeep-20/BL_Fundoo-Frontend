@@ -4,12 +4,12 @@ import { Menu, RotateCw, Settings, Rows2, Grip, Grid, Search, Loader2 } from "lu
 import { Avatar, Tooltip } from "@mui/material";
 import ProfileMenu from "./ProfileMenu";
 import { NotesContext } from "../../context/NotesContext";
-import { getNotes } from "../../utils/Api"; // Import the API function
+import { getNotes } from "../../utils/Api"; 
 
 function Navbar({ toggleSidebar, activePage, onViewChange }) {
   const [anchorEl, setAnchorEl] = useState(null);
   const [isGridView, setIsGridView] = useState(true);
-  const { setNotesList, setSearchQuery } = useContext(NotesContext); // Access setNotesList
+  const { setNotesList, setSearchQuery } = useContext(NotesContext); 
   const firstLetter = localStorage.getItem("email")?.charAt(0).toLocaleUpperCase() || "U";
   const [isLoading, setIsLoading] = useState(false);
 
@@ -31,17 +31,17 @@ function Navbar({ toggleSidebar, activePage, onViewChange }) {
   };
 
   const handleRefresh = () => {
-    setIsLoading(true); // Start loading
+    setIsLoading(true); 
     getNotes()
       .then((data) => {
         const allNotes = data?.data?.data?.data || [];
-        setNotesList(allNotes); // Update notes list with fresh data
+        setNotesList(allNotes); 
       })
       .catch((error) => {
-        setNotesList([]); // Reset to empty list on failure
+        setNotesList([]); 
       })
       .finally(() => {
-        setIsLoading(false); // Stop loading regardless of success or failure
+        setIsLoading(false); 
       });
   };
 

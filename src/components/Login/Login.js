@@ -11,7 +11,7 @@ import "./Login.scss";
 import { loginApiCall } from "../../utils/Api";
 import { Link as RouterLink, useNavigate } from "react-router-dom";
 import { Link as MuiLink } from "@mui/material";
-import toast from "react-hot-toast"; // Import toast from react-hot-toast
+import toast from "react-hot-toast"; 
 
 const Login = () => {
   const navigate = useNavigate();
@@ -27,7 +27,7 @@ const Login = () => {
 
   const handleLogin = async () => {
     let isValid = true;
-    setApiError(""); // Clear previous API error
+    setApiError(""); 
 
     if (!emailRegex.test(email)) {
       setEmailError("Invalid email format");
@@ -46,7 +46,6 @@ const Login = () => {
     if (isValid) {
       loginApiCall({ email, password })
         .then((res) => {
-          console.log("Login successful:", res);
           toast.success("Login successful!", {
             duration: 3000, // 3 seconds
             position: "top-right",
@@ -55,7 +54,6 @@ const Login = () => {
           navigate("/dashboard/notes");
         })
         .catch((err) => {
-          console.error("Login error:", err.message);
           setApiError("Invalid email or password. Please try again.");
           toast.error("Login failed. Please check your credentials.", {
             duration: 3000,

@@ -1,4 +1,3 @@
-// src/components/AddNote/AddNote.js
 import React, { useRef, useEffect, useState, useCallback } from "react";
 import './AddNote.scss'
 import {
@@ -45,13 +44,12 @@ const AddNote = ({
   const handleAddNote = useCallback(() => {
     if (title || note) {
       if (noteDetails) {
-        // Edit mode
         updateNoteApiCall({
           ...noteDetails,
           title,
           description: note,
           noteId: noteDetails.id,
-        }) // Updated to match your pattern
+        }) 
           .then((res) => {
             handleIconClick({
               action: "update",
@@ -63,17 +61,14 @@ const AddNote = ({
                 .then(() => {
                   handleIconClick({ action: "color", data: color });
                 })
-                .catch((err) => console.error("Error changing color:", err));
             }
             setModalOpen(false);
           })
-          .catch((err) => console.error("Error updating note:", err));
       } else {
         // Add mode
         const newNote = { title, description: note, color };
         addNoteApiCall(newNote)
           .then((response) => {
-            // console.log("response",response?.data?.status?.details)
             updateList({
               action: "add",
               data: response?.data?.status?.details,
@@ -82,7 +77,6 @@ const AddNote = ({
             setNote("");
             setColor("#FFFFFF");
           })
-          .catch((error) => console.error("Error adding note:", error));
       }
     }
     setIsExpanded(false);

@@ -23,12 +23,12 @@
       align-items: center;
       gap: 20px;
       width: 100%;
-      max-width: 600px; // Matches NotesContainer for wider cards
+      max-width: 600px; 
 
       .note-card {
         width: 100%;
-        max-width: 80px; // Matches NotesContainer for wider cards
-        margin: 0 0 20px 0; // Matches NotesContainer bottom margin
+        max-width: 80px; 
+        margin: 0 0 20px 0;
       }
     }
   }

@@ -6,14 +6,12 @@ export const loginApiCall = async (payload) => {
       "https://fundoonotes.incubation.bridgelabz.com/api/user/login",
       payload
     );
-    // console.log('Response data:', response.data);
 
     localStorage.setItem("token", response.data.id);
     localStorage.setItem("email", response.data.email);
 
     return response.data;
   } catch (error) {
-    console.error("Error:", error.message);
     throw error;
   }
 };
@@ -24,11 +22,9 @@ export const signupApiCall = async (payload) => {
       "https://fundoonotes.incubation.bridgelabz.com/api/user/userSignUp",
       payload
     );
-    console.log("Response data:", response.data);
 
     return response.data;
   } catch (error) {
-    console.error("Error:", error.message);
     throw error;
   }
 };
@@ -122,7 +118,6 @@ export const changeColorAPI = async (payload) => {
           }
       });
   } catch (error) {
-      console.error("Error in editNoteApi: ", error);
       throw error;
   }
 };

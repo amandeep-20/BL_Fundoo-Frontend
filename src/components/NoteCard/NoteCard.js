@@ -36,7 +36,7 @@ import {
 import AddNote from "../AddNote/AddNote";
 import ColorPalette from "../ColorPalette/ColorPalette";
 import { useOutletContext } from "react-router-dom";
-import toast from "react-hot-toast"; // Import toast from react-hot-toast
+import toast from "react-hot-toast"; 
 
 export default function NoteCard({ noteDetails, updateList, isTrash = false }) {
   const { isGridView } = useOutletContext();
@@ -68,7 +68,6 @@ export default function NoteCard({ noteDetails, updateList, isTrash = false }) {
           updateList({ action: "color", data: { ...noteDetails, color: data } });
         })
         .catch((err) => {
-          console.error("Error changing color:", err);
           toast.error("Failed to change color", {
             duration: 3000,
             position: "top-right",
@@ -95,7 +94,6 @@ export default function NoteCard({ noteDetails, updateList, isTrash = false }) {
         });
       })
       .catch((err) => {
-        console.error("Error updating archive status:", err);
         toast.error(`Failed to ${newArchiveStatus ? "archive" : "unarchive"} note`, {
           duration: 3000,
           position: "top-right",
@@ -114,7 +112,6 @@ export default function NoteCard({ noteDetails, updateList, isTrash = false }) {
         updateList({ data: updatedNote, action: "delete" });
       })
       .catch((err) => {
-        console.error("Error moving note to trash:", err);
         toast.error("Failed to move note to trash", {
           duration: 3000,
           position: "top-right",
@@ -134,7 +131,6 @@ export default function NoteCard({ noteDetails, updateList, isTrash = false }) {
         updateList({ data: updatedNote, action: "restore" });
       })
       .catch((err) => {
-        console.error("Error restoring note:", err);
         toast.error("Failed to restore note", {
           duration: 3000,
           position: "top-right",
@@ -152,7 +148,6 @@ export default function NoteCard({ noteDetails, updateList, isTrash = false }) {
         updateList({ data: noteDetails, action: "delete" });
       })
       .catch((err) => {
-        console.error("Error deleting note permanently:", err);
         toast.error("Failed to delete note permanently", {
           duration: 3000,
           position: "top-right",
@@ -200,9 +195,7 @@ export default function NoteCard({ noteDetails, updateList, isTrash = false }) {
             data: { ...noteDetails, reminder: combinedDateTime },
           });
           handleReminderClose();
-        })
-        .catch((err) => console.log(err.message));
-    }
+        })    }
   };
 
   const handleDeleteReminder = () => {
@@ -215,7 +208,6 @@ export default function NoteCard({ noteDetails, updateList, isTrash = false }) {
           data: { ...noteDetails, reminder: null },
         });
       })
-      .catch((err) => console.error("Error removing reminder:", err));
   };
 
   return (

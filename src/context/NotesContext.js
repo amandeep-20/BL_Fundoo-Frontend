@@ -11,12 +11,11 @@ export const NotesProvider = ({ children }) => {
     getNotes()
       .then((data) => {
         const allNotes = data?.data?.data?.data || [];
-        setNotesList(allNotes); // Fetch all notes
+        setNotesList(allNotes);
       })
       .catch(() => setNotesList([]));
   }, []);
 
-  // Filter notes based on search query
   const filteredNotes = notesList.filter((note) =>
     (note.title || "").toLowerCase().includes(searchQuery.toLowerCase()) ||
     (note.description || "").toLowerCase().includes(searchQuery.toLowerCase())

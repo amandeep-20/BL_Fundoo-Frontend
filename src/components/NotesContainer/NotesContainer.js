@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { useOutletContext } from "react-router-dom"; // Added to get context
+import { useOutletContext } from "react-router-dom"; 
 import Masonry from "react-masonry-css";
 import NoteCard from "../NoteCard/NoteCard";
 import AddNote from "../AddNote/AddNote";
@@ -7,7 +7,7 @@ import "./NotesContainer.scss";
 import { NotesContext } from "../../context/NotesContext";
 
 const NotesContainer = () => {
-  const { isGridView } = useOutletContext(); // Get isGridView from Outlet context
+  const { isGridView } = useOutletContext(); 
   const { notesList, setNotesList, filteredNotes } = useContext(NotesContext);
   const activeNotes = filteredNotes.filter((note) => !note.isArchived && !note.isDeleted);
   const [isLargeScreen, setIsLargeScreen] = useState(window.innerWidth > 900);
